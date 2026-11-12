@@ -1,0 +1,10 @@
+{
+  "id": "edit-10",
+  "version_id": "1-v3",
+  "instruction": "123",
+  "status": "confirmed",
+  "diff": {
+    "unified": "--- v1\n+++ proposed\n@@\n-срок 14 дней\n+срок 30 дней\n"
+  },
+  "enough_data": true
+}
