@@ -1,13 +1,11 @@
-<<<<<<< HEAD
-1й Терминал:
-cd "Путь к backend"
-uvicorn app.main:app --reload --port 8000
+# Дело
 
-2й Терминал:
-npm run dev
-=======
-cd "Путь к backend"
-uvicorn app.main:app --reload --port 8000
+Веб-сервис для работы с документами (DOCX/PDF): загрузка, версии, атрибуты, вопросы по тексту, правки с подтверждением и сравнение версий.
 
-npm run dev
->>>>>>> 1cb4949 (Улучшена структура. Упаковано в Docker)
+## Запуск
+
+```bash
+docker compose up --build
+```
+
+Сайт: http://localhost:3000
