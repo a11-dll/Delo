@@ -8,9 +8,21 @@ from pydantic import BaseModel
 router = APIRouter()
 
 BASE_DIR = Path(__file__).resolve().parents[3]
-DOCUMENTS_DIR = BASE_DIR / "data" / "documents"
-ID_FILE = BASE_DIR / "data" / "id.txt"
+DATA_DIR = BASE_DIR / "data"
+DOCUMENTS_DIR = DATA_DIR / "documents"
+ID_FILE = DATA_DIR / "id.txt"
 empty = {"value": None, "status": "missing", "source": None}
+
+
+def ensure_storage() -> None:
+    DOCUMENTS_DIR.mkdir(parents=True, exist_ok=True)
+    (DOCUMENTS_DIR / "edits").mkdir(parents=True, exist_ok=True)
+    if not ID_FILE.exists():
+        ID_FILE.write_text("", encoding="utf-8")
+    edit_id = DOCUMENTS_DIR / "edits" / "edit_id.txt"
+    if not edit_id.exists():
+        edit_id.write_text("", encoding="utf-8")
+
 
 def document_files(folder: Path, attributes=False) -> list[Path]:
     if attributes:
@@ -38,8 +50,10 @@ def date_cheсk(attr):
 
 @router.get("/documents")
 def list_documents():
+    ensure_storage()
     documents = []
     for dir in DOCUMENTS_DIR.iterdir():
+
         if dir.is_dir():
             v1 = dir / "v1"
             if not v1.exists():
@@ -62,6 +76,7 @@ def list_documents():
 
 @router.post("/documents")
 async def upload(file: UploadFile):
+    ensure_storage()
     name = file.filename
     content = await file.read()
 

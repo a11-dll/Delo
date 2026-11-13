@@ -1,4 +1,0 @@
-cd "Путь к backend"
-uvicorn app.main:app --reload --port 8000
-
-npm run dev
